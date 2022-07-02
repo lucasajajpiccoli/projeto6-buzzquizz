@@ -1,53 +1,48 @@
 let Dados;
-let i; let k; let j; let w; 
+let i; let j; let w;
+let layout; 
 const sc2_HTML = document.querySelector(".sc2_content");  
 
 function buscarDados(){
-    const promise = axios.get(https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes);
+    const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${quizzID}`);
     promise.then(recebeDados);
 }
 
-function recebeDados(quizzes){
+function buscarQuizz(response){
     // console.log("Os dados chegaram!");
-    // console.log(quizzes);
-    Dados = quizzes.data;
+    // console.log(response);
+    sc1_HTML = "";
+    Dados = response.data;
 
-renderQuizzes(quizzes);
+renderBanner(response);
 }
 
-function renderQuizzes(quizzes){
+function renderBanner(response){
     
-    sc2_HTML.innerHTML = "";
-    // console.log(quizzes);
+    // sc2_HTML.innerHTML = "";
 
-    let qtd_quizzes = quizzes.data.length;
-    for(i=0; i < qtd_quizzes; i++){
+    layout = `
+    <div class="sc2_banner" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url('${response.image}')>
+    <h1>${response.title}</h1></div>`;
+        
+    sc2_HTML.innerHTML += layout;
 
-        const id = (quizzes.data[i].id);
-        const title = (quizzes.data[i].title);
-        const image = (quizzes.data[i].image);
-
-        let layout = `
-            <div class="sc2_banner">${title}</div>
-            <img url="${image}"/>`;
-         
-        sc2_HTML.innerHTML += layout;
-
-        renderQuestions();
-        resultLevels();
+    renderQuestions();
+    resultLevels();
     }
 }
 
 function renderQuestions(){
     let arrayQuestion = [];
-    arrayQuestion = quizzes.data[i].questions;
+    arrayQuestion = response.questions;
 
-    for(j=0; arrayQuestion.length > j; j++){
+    // const boxquestion = document.querySelector(".sc2_content.sc2_boxquestion");
+
+    for(i=0; arrayQuestion.length > i; i++){
         
-        layout = `<div class="sc2_question">${arrayQuestion[j].title}</div>`;
-
-        let backgrnd = layout.querySelector(".sc2_question"); //acho que não, mas enfim...
-        backgrnd.classList.add(`${arrayQuestion[j].color}`); //faz sentido isso?               
+        layout = `
+        <div class="sc2_question" style ="background-color:${arrayQuestion[i].color}">
+        <h1>${arrayQuestion[i].title}</h1></div>`;               
 
         sc2_HTML.innerHTML += layout;
 
@@ -56,35 +51,61 @@ function renderQuestions(){
 }
 
 function renderAnswers(){
-    let arrayAnswers= [];
-    arrayAnswers = arrayQuestion[j].answers;
+    let arrayAnswers = [];
+    arrayAnswers = arrayQuestion[i].answers;
 
-    for(k=0; arrayAnswers.length>k/2; k++){
-        
-        if((arrayAnswers.length)%2 !== 0 && k==k/2){
-            layout = `
-            <div class="imgAnswer">${arrayAnswers[k].image}</div>;
-            <div class="sc2_answers">${arrayAnswers[k].text}</div>`;
-            sc2_HTML.innerHTML += layout;
-        }else{
-            layout = `
-            <div class="imgAnswer">${arrayAnswers[k].image}</div>;
-            <div class="sc2_answers">${arrayAnswers[k].text}</div>
-            <div class="imgAnswer">${arrayAnswers[k+1].image}</div>;
-            <div class="sc2_answers">${arrayAnswers[k+1].text}</div>`;
+    for(j=0; arrayAnswers.length/2 >=j; j++){   
+             
+        layout = `
+        <div class="boxAnswers">
+            <span onclick="behav_answer(this)" class="answer ${arrayAnswers[j].isCorrectAnswer}">
+                <img scr="${arrayAnswers[j].image}">;
+                <p>${arrayAnswers[j].text}</p>
+            </span>
+            <span onclick="behav_answer(this)" class="answer ${arrayAnswers[j].isCorrectAnswer}">
+                <img scr="${arrayAnswers[j+1].image}">;
+                <p>${arrayAnswers[j+1].text}</p>
+            </span>
+        </div>`;
 
-            sc2_HTML.innerHTML += layout;
-        }
+        sc2_HTML.innerHTML += layout;
+        j+=1;
+    }
 
-        behaviorAnswers();
+    if((arrayAnswers.length)%2 !== 0 && j>arrayAnswers.length){
+        layout = `
+        <div class="boxAnswers">
+        <span onclick="behav_answer(this)" class="answer ${arrayAnswers[j].isCorrectAnswer}">
+            <img scr="${arrayAnswers[j].image}">;
+            <p>${arrayAnswers[j].text}</p>
+        </span>
+        </div>`;
+        sc2_HTML.innerHTML += layout;
     }
 }
 
-// function behaviorAnswers(){
-//     if (arrayAnswers[k].isCorrectAnswer == true){
-//     }else{
-//     }
-// }
+function behav_answer(selectedAnswer){
+    arrayAnswers.forEach(txt_answer => {
+        if (txt_answer.isCorrectAnswer == "true")
+        txt_answer.document.querySelector("p").style.color = "green";
+        else if (txt_answer.isCorrectAnswer == "false")
+        txt_answer.document.querySelector("p").style.color = "red"});
+
+        // txt_answer.document.querySelector.setAttribute("class", "p"))
+        // txt_answer.document.querySelector(".answer.true p").style.color = "green";
+
+    // if (selectedAnswer.classList.contains("true"))
+    //     selectedAnswer.querySelector("p").style.color = "green";
+    // else if (selectedAnswer.classList.contains("false"))
+    // selectedAnswer.querySelector("p").style.color = "red";
+
+    // let txt_answer = selectedAnswer.parentElement.querySelectorAll(".answer.false p");
+    // let redAnswers = txt_answer.map( textRed => {textRed.style.color = "red"});
+
+    // selectedAnswer.parentElement.style.opacity = "50%";
+    // selectedAnswer.classList.remove(".opacity");    
+   
+}
 
 function resultLevels(){
     const level = quizzes.data[i].levels;
