@@ -3,7 +3,7 @@ let i; let k; let j; let w;
 const sc2_HTML = document.querySelector(".sc2_content");  
 
 function buscarDados(){
-    const promise = axios.get(https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes);
+    const promise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
     promise.then(recebeDados);
 }
 

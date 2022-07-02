@@ -117,6 +117,7 @@ body{
     font-size: 19px;
     line-height: 22px;
     text-align: left;
+    word-break: break-word;
     color: #FFFFFF;
     display: flex;
     align-items: center;
@@ -154,12 +155,22 @@ body{
     .sc1_otherQuizzes_content {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
+        justify-content: flex-start;
     }
 
     .sc1_thumbnail {
         width: 340px;
         height: 180px;
+    }
+
+    .sc1_thumbnail:hover,
+    .sc1_firstQuizz div:last-child:hover,
+    .sc1_userQuizzes_title ion-icon:hover {
+        cursor: pointer;
+    }
+
+    .sc1_thumbnail_margin_right {
+        margin-right: 15px;
     }
 
 }
