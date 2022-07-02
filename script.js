@@ -1,14 +1,14 @@
 let sc1_HTML = document.querySelector(".sc1_content");
 
-let testVariable;
+//sc1Render();
 
-sc1Render();
+let sc3_HTML = document.querySelector(".sc3_content");
 
 let otherQuizzesElement = document.querySelector(".sc1_otherQuizzes_content")
 
 let quizzesPromise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
 
-quizzesPromise.then(quizzesRender);
+//quizzesPromise.then(quizzesRender);
 
 function sc1Render() {
     // sc2_HTML.innerHTML = "";
@@ -35,7 +35,6 @@ function sc1Render() {
 }
 
 function quizzesRender(response) {
-    testVariable = response.data;
     for (let i = 0; i < response.data.length; i++) {
         otherQuizzesElement.innerHTML +=
             `
