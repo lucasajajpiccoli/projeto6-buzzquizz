@@ -1,8 +1,8 @@
-document.querySelector(".screen").classList.add("sc1_content");
+//document.querySelector(".screen").classList.add("sc1_content");
 
 let sc1_HTML = document.querySelector(".sc1_content");
 
-sc1Render();
+//sc1Render();
 
 //let sc3_HTML = document.querySelector(".sc3_content");
 
@@ -10,7 +10,7 @@ let otherQuizzesElement = document.querySelector(".sc1_otherQuizzes_content")
 
 let quizzesPromise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
 
-quizzesPromise.then(quizzesRender);
+//quizzesPromise.then(quizzesRender);
 
 function sc1Render() {
     // document.querySelector("body").classList.remove("sc2_content");
