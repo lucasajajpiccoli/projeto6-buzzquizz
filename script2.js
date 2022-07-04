@@ -199,6 +199,7 @@ function runRestart(){
 function backToHomePg(){
     document.querySelector(".screen_up").classList.remove("screen2");
     document.querySelector(".screen_up").classList.add("screen1");
+    sc2_HTML.innerHTML = "";
     sc1Render();
-    buscarAllQuizzes();
+    // buscarAllQuizzes();
 }
