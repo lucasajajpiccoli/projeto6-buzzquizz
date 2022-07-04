@@ -61,12 +61,12 @@ function renderAnswers(){
              
         layout = `
         <div class="boxAnswers">
-            <span onclick="responseBehavior(this, 'answer')" class="answer ${arrayAnswers[j].isCorrectAnswer}">
-                <img scr="${arrayAnswers[j].image}">
+            <span onclick="responseBehavior(this)" class="answer" ${arrayAnswers[j].isCorrectAnswer}">
+                <img src="${arrayAnswers[j].image}">
                 <p>${arrayAnswers[j].text}</p>
             </span>
-            <span onclick="responseBehavior(this)" class="answer ${arrayAnswers[j].isCorrectAnswer}">
-                <img scr="${arrayAnswers[j+1].image}">
+            <span onclick="responseBehavior(this)" class="answer" ${arrayAnswers[j].isCorrectAnswer}">
+                <img src="${arrayAnswers[j+1].image}">
                 <p>${arrayAnswers[j+1].text}</p>
             </span>
         </div>`;
@@ -74,11 +74,11 @@ function renderAnswers(){
         sc2_HTML.innerHTML += layout;
     }
 
-    if((arrayAnswers.length)%2 !== 0 && j>arrayAnswers.length){
+    if((arrayAnswers.length)%2 !== 0 && j > arrayAnswers.length/2){
         layout = `
         <div class="boxAnswers">
-        <span onclick="responseBehavior(this)" class="answer ${arrayAnswers[j].isCorrectAnswer}">
-            <img scr="${arrayAnswers[j].image}">
+        <span onclick="responseBehavior(this)" class="answer" ${arrayAnswers[j].isCorrectAnswer}">
+            <img src="${arrayAnswers[j].image}">
             <p>${arrayAnswers[j].text}</p>
         </span>
         </div>`;
@@ -87,20 +87,29 @@ function renderAnswers(){
 }
 
 function responseBehavior(selectedAnswer){
-    arrayAnswers.forEach(txt_answer => {
-        if (txt_answer.isCorrectAnswer == "true")
-        txt_answer.document.querySelector("p").style.color = "green";
-        else if (txt_answer.isCorrectAnswer == "false")
-        txt_answer.document.querySelector("p").style.color = "red"});
+//    arrayAnswers.forEach(txt_answer => {
+//        if (txt_answer.isCorrectAnswer === "true")
+//        txt_answer.document.querySelector("p").style.color = "green";
+//        else if (txt_answer.isCorrectAnswer === "false")
+//        txt_answer.document.querySelector("p").style.color = "red"});
 
-    let parentAnswer = selectedAnswer.parentElement;
-    let all_answers = parentAnswer.querySelectorAll(".answer");
-        all_answers.forEach(ans => {ans.classList.add("opacity")});
+    if(selectedAnswer.classList.contains("true")) {
+        selectedAnswer.querySelector("p").style.color = "green";
+    } else if (selectedAnswer.classList.contains("false")) {
+        selectedAnswer.querySelector("p").style.color = "red";
+    }
 
-        selectedAnswer.querySelector("answer").classList.remove("opacity");
+//    let parentAnswer = selectedAnswer.parentElement;
+//    let all_answers = parentAnswer.querySelectorAll(".answer");
+//        all_answers.forEach(ans => {ans.classList.add("opacity")});
 
-        setTimeout(function (){scrollNextQuestion(parentAnswer)},2000);
-    
+//        selectedAnswer.querySelector(".answer").classList.remove("opacity");
+
+//        setTimeout(function (){scrollNextQuestion(parentAnswer)},2000);
+
+
+
+
     // txt_answer.document.querySelector.setAttribute("class", "p"))
     // txt_answer.document.querySelector(".answer.true p").style.color = "green";
 
