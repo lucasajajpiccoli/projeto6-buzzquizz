@@ -3,9 +3,18 @@ let arrayQuestion = [];
 let arrayAnswers = [];
 let i; let j; let w;
 let layout; 
-const sc2_HTML = document.querySelector(".sc2_content");  
-let quizzID = 9436;
-// quizzID = 9436;
+let sc2_HTML;
+let quizzID;
+let count = 0; let qtdclicks = 0;
+// quizzID = 9923;
+
+function openSelectedQuizz(element){
+    document.querySelector(".screen_up").classList.remove("screen1");
+    document.querySelector(".screen_up").classList.add("screen2");
+    sc2_HTML = document.querySelector(".screen2"); 
+    quizzID = 9923;
+    buscarDados();
+}
 
 function buscarDados(){
     const promise = axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${quizzID}`);
@@ -13,23 +22,13 @@ function buscarDados(){
 }
 
 function buscarQuizz(response){
-    // console.log(response);
     sc1_HTML.innerHTML = "";
     quizzDados = response.data;
     renderBanner();
     renderQuestions();
-    // resultLevel();
-}
-
-function openSelectedQuizz(element){
-    quizzID = element;
-    buscarDados();
 }
 
 function renderBanner(){
-    
-    // sc2_HTML.innerHTML = "";
-
     layout = `
     <div class="sc2_banner" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url('${quizzDados.image}')">
     <h1>${quizzDados.title}</h1></div>`;
@@ -38,10 +37,10 @@ function renderBanner(){
 }
 
 function renderQuestions(){
+
     arrayQuestion = quizzDados.questions;
 
-    for(i=0; arrayQuestion.length > i; i++){
-        
+    for(i=0; arrayQuestion.length > i; i++){        
         layout = `
         <div class="sc2_question" style ="background-color:${arrayQuestion[i].color}">
         <h1>${arrayQuestion[i].title}</h1></div>`;               
@@ -50,13 +49,21 @@ function renderQuestions(){
 
         renderAnswers();
     }
+
+    document.querySelector("body").scrollIntoView(true);
+}
+
+function embaralhar() {
+	return Math.random() - 0.5;
 }
 
 function renderAnswers(){
-    arrayAnswers = arrayQuestion[i].answers;
 
-    for(j=0; arrayAnswers.length/2 >=j; j+=2){   
-             
+    arrayAnswers = arrayQuestion[i].answers;
+    arrayAnswers.sort(embaralhar);
+
+    for(j=0; arrayAnswers.length/2 >=j; j+=2){     
+
         layout = `
         <div class="boxAnswers">
             <span onclick="responseBehavior(this)" class="answer ${arrayAnswers[j].isCorrectAnswer}">
@@ -64,7 +71,7 @@ function renderAnswers(){
                 <p>${arrayAnswers[j].text}</p>
             </span>
             <span onclick="responseBehavior(this)" class="answer ${arrayAnswers[j].isCorrectAnswer}">
-                <img src="${arrayAnswers[j+1].image}")>
+                <img src="${arrayAnswers[j+1].image}">
                 <p>${arrayAnswers[j+1].text}</p>
             </span>
         </div>`;
@@ -82,65 +89,116 @@ function renderAnswers(){
         </div>`;
         sc2_HTML.innerHTML += layout;
     }
+
 }
+
+let parentAnswer;
+let box_answers;
+let neighborSibling;
 
 function responseBehavior(selectedAnswer){
-//    arrayAnswers.forEach(txt_answer => {
-//        if (txt_answer.isCorrectAnswer === "true")
-//        txt_answer.document.querySelector("p").style.color = "green";
-//        else if (txt_answer.isCorrectAnswer === "false")
-//        txt_answer.document.querySelector("p").style.color = "red"});
+    parentAnswer = selectedAnswer.parentElement;
+    box_answers = parentAnswer.querySelectorAll(".answer");
 
-    if(selectedAnswer.classList.contains("true")) {
+    if (selectedAnswer.classList.contains("true")){ 
         selectedAnswer.querySelector("p").style.color = "green";
-    } else if (selectedAnswer.classList.contains("false")) {
+        count++;
+    }else if (selectedAnswer.classList.contains("false")) 
         selectedAnswer.querySelector("p").style.color = "red";
+
+    opacityReaction(selectedAnswer);
+
+    qtdclicks++;
+    runLevels();
+}
+
+function scrollNextStep(element){
+    setTimeout(function (){element.scrollIntoView()},2000);
+}
+
+function opacityReaction(selectedAnswer){
+
+    box_answers.forEach(ans => {ans.classList.add("opacity")});
+    selectedAnswer.classList.remove("opacity");
+    box_answers.forEach(ans => {ans.setAttribute("onClick", "")});
+
+    neighborSibling = parentAnswer.previousElementSibling;
+
+    while (neighborSibling.classList.contains("boxAnswers")) {
+        neighborSibling.classList.add("opacity");
+        neighborSibling.querySelectorAll(".answer").forEach(ans => {ans.setAttribute("onClick", "")});
+        neighborSibling = neighborSibling.previousElementSibling;
     }
 
-//    let parentAnswer = selectedAnswer.parentElement;
-//    let all_answers = parentAnswer.querySelectorAll(".answer");
-//        all_answers.forEach(ans => {ans.classList.add("opacity")});
+    neighborSibling = parentAnswer.nextElementSibling;
 
-//        selectedAnswer.querySelector(".answer").classList.remove("opacity");
-
-//        setTimeout(function (){scrollNextQuestion(parentAnswer)},2000);
-
-
-
-    // txt_answer.document.querySelector.setAttribute("class", "p"))
-    // txt_answer.document.querySelector(".answer.true p").style.color = "green";
-
-    // if (selectedAnswer.classList.contains("true"))
-    //     selectedAnswer.querySelector("p").style.color = "green";
-    // else if (selectedAnswer.classList.contains("false"))
-    // selectedAnswer.querySelector("p").style.color = "red";
-
-    // let txt_answer = selectedAnswer.parentElement.querySelectorAll(".answer.false p");
-    // let redAnswers = txt_answer.map( textRed => {textRed.style.color = "red"});
-
-    // selectedAnswer.parentElement.style.opacity = "50%";
-    // selectedAnswer.classList.remove(".opacity");    
-   
+    while (neighborSibling !== null && neighborSibling.classList.contains("boxAnswers")) {
+        neighborSibling.classList.add("opacity");
+        neighborSibling.querySelectorAll(".answer").forEach(ans => {ans.setAttribute("onClick", "")});
+        neighborSibling = neighborSibling.nextElementSibling;
+    }
+    
+    scrollNextStep(neighborSibling);
 }
 
-function scrollNextQuestion(element){
-    let questionContainer = element.parentElement;
-    questionContainer.nextSibling.scrollIntoView();
+function runLevels(){
+    if (qtdclicks === arrayQuestion.length)
+    resultLevel();
+    let scrollToLevel = document.querySelector(".sc2_leveltopo");
+    scrollNextStep(scrollToLevel);
 }
 
-/*
 function resultLevel(){
-    const level = quizz.Dados.levels;
-    for(w=0; level.length > w; w++){
-        if (result > minValue){
+    const arrayLevels = quizzDados.levels;
+    const result = Math.round(count/qtdclicks *100);
+
+    for(w=0; arrayLevels.length > w; w++){
+
+        if (result >= arrayLevels[w].minValue && w === arrayLevels.length-1){
             layout = `
-            <div class="sc2_level">${level[w].title}</div>;
-            <div class="sc2_answers">${level[w].image}</div>
-            <div class="sc2_answers">${level[w].text}</div>`;
-
-            sc2_HTML.innerHTML += layout;
+            <div class="sc2_level">
+                <div class="sc2_leveltopo">
+                    <h1>${level[w].title}</h1>
+                </div>
+                <div>
+                    <img src="${arrayLevels[w].image}">
+                    <span>${arrayLevels[w].text}</span>
+                </div>            
+            </div>`;        
         }
-    }
-}
-*/
+        else if (result >= arrayLevels[w].minValue && result < arrayLevels[w+1].minValue){
+            layout = `
+            <div class="sc2_level">
+                <div class="sc2_leveltopo">
+                    <h1>${result}% de acerto: ${arrayLevels[w].title}</h1>
+                </div>
+                <div>
+                    <img src="${arrayLevels[w].image}">
+                    <span>${arrayLevels[w].text}</span>
+                </div>            
+            </div>`;                           
+        }
 
+    }
+
+    layout += `
+    <div class="sc2_restart" onclick="runRestart(this)">
+        <h1>Reiniciar Quizz</h1>
+    </div>
+    <div class="sc2_buttonHome" onclick="backToHomePg(this)">Voltar para home</div>`;
+
+    sc2_HTML.innerHTML += layout;
+}
+
+function runRestart(){
+    document.querySelector("body").scrollIntoView(true);
+    count=0; qtdclicks=0;
+    buscarDados();
+}
+
+function backToHomePg(){
+    document.querySelector(".screen_up").classList.remove("screen2");
+    document.querySelector(".screen_up").classList.add("screen1");
+    sc1Render();
+    buscarAllQuizzes();
+}

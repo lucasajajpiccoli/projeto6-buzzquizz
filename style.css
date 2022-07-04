@@ -27,7 +27,7 @@ body{
     background-color: #FAFAFA;
 }
 
-.sc1_content {
+.screen1 {
     margin: 100px 18px;
 }
 
@@ -126,8 +126,8 @@ body{
     left: 20px;
 }
 
-.sc2_content {
-    margin-top: -31px;
+.screen2 {
+    padding-top: 69px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -169,15 +169,13 @@ body{
     font-size: 19px;
     line-height: 22px;
     color: #FFFFFF;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
 }
 
 .boxAnswers {
     width: 340px;
     height: 153px;
-    padding-top: 12px;
+    margin-top: 12px;
     display: flex;
     justify-content: space-between;
 }
@@ -200,8 +198,91 @@ body{
     opacity: 0.5;
 }
 
+.sc2_level {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 375px;
+    height: auto;
+    box-shadow: 0px 10px rgba(0, 0, 0, 0.05);
+    margin-top: 54px;
+    background-color: aqua;
+}
+
+.sc2_leveltopo {
+    background-color: #EC362D;
+    margin-top: 18px;
+    width: 340px;
+    height: 99px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sc2_leveltopo h1{
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 22px;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.sc2_level img{
+    margin-top: 9px;
+    width: 340px;
+    height: 225px;
+}
+
+.sc2_level span{
+    margin-top: 9px;
+    margin-bottom: 14px;
+    width: 340px;
+    height: auto;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 25px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.sc2_restart {
+    background-color: #EC362D;
+    border-radius: 15px;
+    margin-top: 34px;
+    width: 220.32px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sc2_restart h1{
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+    color: #FFF5F4;
+}
+
+.sc2_buttonHome {
+    margin-top: 8px;
+    margin-bottom: 66px;
+    width: 220.32px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+    color: #818181;
+}
+
 @media (min-width: 1100px) {
-    .sc1_content {
+    .screen1 {
         width: 1050px;
         margin: 150px auto;
     }
@@ -239,10 +320,6 @@ body{
         margin-right: 15px;
     }
     
-    .sc2_content {
-        margin-top: -82px;
-    }
-    
     .sc2_banner {
         height: 227px;
     }
@@ -266,15 +343,33 @@ body{
         height: 237px;
         padding-top: 19px;
     }
-    
+
     .answer img {
         width: 332px;
         height: 175px;
     }
+
     .answer p {
         font-size: 20px;
         width: 332px;
         height: 34px;
         margin-top: 10px;
     }
+
+    .sc2_level {
+        width: 759px;
+        height: 430px;
+    }
+
+    .sc2_level img{
+        width: 364px;
+        height: 273px;
+    }
+
+    .sc2_level span{
+        width: 328px;
+        height: 250px;
+        font-size: 19px;
+    }
+
 }

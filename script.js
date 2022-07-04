@@ -1,17 +1,20 @@
-let sc1_HTML = document.querySelector(".sc1_content");
+document.querySelector(".screen_up").classList.add("screen1");
+
+let sc1_HTML = document.querySelector(".screen1");
 
 sc1Render();
-
-let sc3_HTML = document.querySelector(".sc3_content");
+buscarAllQuizzes();
+//let sc3_HTML = document.querySelector(".screen3");
 
 let otherQuizzesElement = document.querySelector(".sc1_otherQuizzes_content")
 
-let quizzesPromise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
-
-quizzesPromise.then(quizzesRender);
+function buscarAllQuizzes(){
+    let quizzesPromise = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
+    quizzesPromise.then(quizzesRender);
+}
 
 function sc1Render() {
-    // sc2_HTML.innerHTML = "";
+    // document.querySelector("body").classList.remove("screen2");
     sc1_HTML.innerHTML = 
     `
     <div class="sc1_firstQuizz">
