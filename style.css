@@ -4,11 +4,6 @@
     box-sizing: border-box;
 }
 
-body{
-    font-family: 'Roboto', sans-serif;
-    background-color: #FAFAFA;
-}
-
 .top {
     width: 100vw;
     height: 69px;
@@ -25,6 +20,11 @@ body{
     top: 0;
     left: 0;
     z-index: 1;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+    background-color: #FAFAFA;
 }
 
 .sc1_content {
@@ -117,6 +117,7 @@ body{
     font-size: 19px;
     line-height: 22px;
     text-align: left;
+    word-break: break-word;
     color: #FFFFFF;
     display: flex;
     align-items: center;
@@ -125,47 +126,59 @@ body{
     left: 20px;
 }
 
+.sc2_content {
+    margin-top: -31px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .sc2_banner {
     width: 100vw;
     height: 142px;
+    background-size: cover;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 .sc2_banner h1{
-    width: 309px;
+    width: 100vw;
     height: 54px;
     font-size: 19px;
-    color: #FFFFFF;
-    text-align: center;
     font-weight: 400;
     line-height: 22px;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .sc2_question{
     width: 340px;
     height: 89px;
     margin-top: 42px;
-    margin-left: 12px;
+    margin-left: 2.5vw;
+    margin-right: 2.5vw;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .sc2_question h1{
-    width: 308px;
-    height: 54px;
-    justify-content: center;
-    text-align: center;
     font-weight: 700;
     font-size: 19px;
     line-height: 22px;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .boxAnswers {
     width: 340px;
     height: 153px;
     padding-top: 12px;
-    margin-left: 18px;
-    margin-right: 18px;
+    display: flex;
     justify-content: space-between;
 }
 
@@ -173,15 +186,18 @@ body{
     width: 163px;
     height: 113px;
 }
+
 .answer p {
     width: 163px;
     height: 22px;
+    margin-top: 5px;
     font-weight: 700;
     font-size: 13px;
-    line-height: 15px;
-    margin-top: 5px;
-    text-align: left;
     color:#000000;
+}
+
+.opacity {
+    opacity: 0.5;
 }
 
 @media (min-width: 1100px) {
@@ -205,7 +221,7 @@ body{
     .sc1_otherQuizzes_content {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
+        justify-content: flex-start;
     }
 
     .sc1_thumbnail {
@@ -213,9 +229,52 @@ body{
         height: 180px;
     }
 
+    .sc1_thumbnail:hover,
+    .sc1_firstQuizz div:last-child:hover,
+    .sc1_userQuizzes_title ion-icon:hover {
+        cursor: pointer;
+    }
+
+    .sc1_thumbnail_margin_right {
+        margin-right: 15px;
+    }
+    
+    .sc2_content {
+        margin-top: -82px;
+    }
+    
     .sc2_banner {
         height: 227px;
     }
 
-}
+    .sc2_banner h1{
+        font-size: 39px;
+    }
 
+    .sc2_question{
+        width: 689px;
+        height: 138px;
+        margin-top: 70px;
+    }
+
+    .sc2_question h1{
+        font-size: 23px;
+    }
+
+    .boxAnswers {
+        width: 689px;
+        height: 237px;
+        padding-top: 19px;
+    }
+    
+    .answer img {
+        width: 332px;
+        height: 175px;
+    }
+    .answer p {
+        font-size: 20px;
+        width: 332px;
+        height: 34px;
+        margin-top: 10px;
+    }
+}
