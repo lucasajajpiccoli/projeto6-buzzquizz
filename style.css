@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-body{
+body {
     font-family: 'Roboto', sans-serif;
     background-color: #FAFAFA;
 }
@@ -141,7 +141,8 @@ body{
     justify-content: center;
     align-items: center;
 }
-.sc2_banner h1{
+
+.sc2_banner h1 {
     width: 100vw;
     height: 54px;
     font-size: 19px;
@@ -153,7 +154,7 @@ body{
     align-items: center;
 }
 
-.sc2_question{
+.sc2_question {
     width: 340px;
     height: 89px;
     margin-top: 42px;
@@ -164,7 +165,7 @@ body{
     align-items: center;
 }
 
-.sc2_question h1{
+.sc2_question h1 {
     font-weight: 700;
     font-size: 19px;
     line-height: 22px;
@@ -193,7 +194,7 @@ body{
     margin-top: 5px;
     font-weight: 700;
     font-size: 13px;
-    color:#000000;
+    color: #000000;
 }
 
 .opacity {
@@ -276,7 +277,7 @@ body{
     justify-content: space-between;
 }
 
-.sc3_questionCreatingBox div{
+.sc3_questionCreatingBox div {
     width: 90vw;
     font-weight: 700;
     font-size: 20px;
@@ -343,6 +344,7 @@ body{
     line-height: 22px;
     color: #000000;
     padding: 15px;
+    resize: none;
 }
 
 .sc3_levelCreatingBox textarea::placeholder {
@@ -453,22 +455,22 @@ body{
     .sc1_thumbnail_margin_right {
         margin-right: 15px;
     }
-    
+
     .sc2_banner {
         height: 227px;
     }
 
-    .sc2_banner h1{
+    .sc2_banner h1 {
         font-size: 39px;
     }
 
-    .sc2_question{
+    .sc2_question {
         width: 689px;
         height: 138px;
         margin-top: 70px;
     }
 
-    .sc2_question h1{
+    .sc2_question h1 {
         font-size: 23px;
     }
 
@@ -477,15 +479,109 @@ body{
         height: 237px;
         padding-top: 19px;
     }
-    
+
     .answer img {
         width: 332px;
         height: 175px;
     }
+
     .answer p {
         font-size: 20px;
         width: 332px;
         height: 34px;
         margin-top: 10px;
+    }
+
+    .sc3_content {
+        margin-top: 140px;
+    }
+
+    .sc3_content input {
+        width: 565px;
+        padding-left: 25px;
+    }
+
+    .sc3_content_1 div:last-child,
+    .sc3_content_2 div:last-child,
+    .sc3_content_3 div:last-child {
+        width: 350px;
+        font-size: 21px;
+        line-height: 25px;
+        margin: 80px auto;
+    }
+
+    .sc3_title {
+        font-size: 23px;
+        line-height: 27px;
+    }
+
+    .sc3_basicInfoBox {
+        width: 600px;
+        margin: 0px auto;
+    }
+
+    .sc3_questionCreatingBox {
+        width: 600px;
+        margin: 0px auto;
+    }
+
+    .sc3_questionCreatingBox div {
+        width: 100%;
+        padding: 0px 18px;
+    }
+
+    .sc3_questionToCreateBox {
+        width: 600px;
+        margin: 25px auto;
+    }
+
+    .sc3_levelCreatingBox {
+        width: 600px;
+        height: 315px;
+        margin: 0px auto;
+    }
+    
+    .sc3_levelCreatingBox div {
+        width: 100%;
+        padding: 0px 18px;
+    }
+
+    .sc3_levelCreatingBox textarea {
+        width: 565px;
+        height: 46px;
+        padding: 10px 25px;
+        display: flex;
+        align-items: center;
+    }
+
+    .sc3_levelToCreateBox {
+        width: 600px;
+        margin: 25px auto;
+    }
+
+    .sc3_thumbnail {
+        width: 500px;
+        height: 265px;
+    }
+    
+    .sc3_thumbnail div {
+        width: calc(100% - 40px);
+        font-size: 23px;
+        line-height: 27px;
+    }
+
+    .sc3_content_4 div:nth-child(3) {
+        width: 220px;
+        height: 45px;
+        font-size: 21px;
+        line-height: 25px;
+        margin: 45px auto 25px auto;
+    }
+    
+    .sc3_backToHome {
+        width: 100%;
+        font-size: 21px;
+        line-height: 25px;
+        margin: 25px auto;
     }
 }
