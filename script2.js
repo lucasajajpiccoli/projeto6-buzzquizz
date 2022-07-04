@@ -3,7 +3,7 @@ let arrayQuestion = [];
 let arrayAnswers = [];
 let i; let j; let w;
 let layout; 
-const sc2_HTML = document.querySelector(".sc2_content");  
+let sc2_HTML;
 let quizzID;
 // quizzID = 9436;
 
@@ -22,13 +22,14 @@ function buscarQuizz(response){
 }
 
 function openSelectedQuizz(element){
+    document.querySelector(".screen").classList.remove("sc1_content");
+    document.querySelector(".screen").classList.add("sc2_content");
+    sc2_HTML = document.querySelector(".sc2_content"); 
     quizzID = element;
     buscarDados();
 }
 
 function renderBanner(){
-    
-    // sc2_HTML.innerHTML = "";
 
     layout = `
     <div class="sc2_banner" style="background-image: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url('${quizzDados.image}')">
@@ -52,6 +53,7 @@ function renderQuestions(){
 
         renderAnswers();
     }
+    document.querySelector("body").scrollIntoView(true);
 }
 
 function renderAnswers(){
@@ -61,11 +63,11 @@ function renderAnswers(){
              
         layout = `
         <div class="boxAnswers">
-            <span onclick="responseBehavior(this)" class="answer" ${arrayAnswers[j].isCorrectAnswer}">
+            <span onclick="responseBehavior(this)" class="answer ${arrayAnswers[j].isCorrectAnswer}">
                 <img src="${arrayAnswers[j].image}">
                 <p>${arrayAnswers[j].text}</p>
             </span>
-            <span onclick="responseBehavior(this)" class="answer" ${arrayAnswers[j].isCorrectAnswer}">
+            <span onclick="responseBehavior(this)" class="answer ${arrayAnswers[j].isCorrectAnswer}">
                 <img src="${arrayAnswers[j+1].image}">
                 <p>${arrayAnswers[j+1].text}</p>
             </span>
@@ -77,7 +79,7 @@ function renderAnswers(){
     if((arrayAnswers.length)%2 !== 0 && j > arrayAnswers.length/2){
         layout = `
         <div class="boxAnswers">
-        <span onclick="responseBehavior(this)" class="answer" ${arrayAnswers[j].isCorrectAnswer}">
+        <span onclick="responseBehavior(this)" class="answer ${arrayAnswers[j].isCorrectAnswer}">
             <img src="${arrayAnswers[j].image}">
             <p>${arrayAnswers[j].text}</p>
         </span>
@@ -94,8 +96,10 @@ function responseBehavior(selectedAnswer){
 //        txt_answer.document.querySelector("p").style.color = "red"});
 
     if(selectedAnswer.classList.contains("true")) {
+        console.log("Será2?");
         selectedAnswer.querySelector("p").style.color = "green";
     } else if (selectedAnswer.classList.contains("false")) {
+        console.log("Será3?")
         selectedAnswer.querySelector("p").style.color = "red";
     }
 
@@ -104,11 +108,30 @@ function responseBehavior(selectedAnswer){
 //        all_answers.forEach(ans => {ans.classList.add("opacity")});
 
 //        selectedAnswer.querySelector(".answer").classList.remove("opacity");
+      
 
-//        setTimeout(function (){scrollNextQuestion(parentAnswer)},2000);
+    let neighborSibling = selectedAnswer.parentElement.previousElementSibling;
 
+    selectedAnswer.parentElement.querySelectorAll(".answer").forEach(ans => {ans.classList.add("opacity")});
+    selectedAnswer.classList.remove("opacity");
 
+    selectedAnswer.parentElement.querySelectorAll(".answer").forEach(ans => {ans.setAttribute("onClick", "")});
 
+    while (neighborSibling.classList.contains("boxAnswers")) {
+        neighborSibling.classList.add("opacity");
+        neighborSibling.querySelectorAll(".answer").forEach(ans => {ans.setAttribute("onClick", "")});
+        neighborSibling = neighborSibling.previousElementSibling;
+    }
+
+    neighborSibling = selectedAnswer.parentElement.nextElementSibling;
+
+    while (neighborSibling !== null && neighborSibling.classList.contains("boxAnswers")) {
+        neighborSibling.classList.add("opacity");
+        neighborSibling.querySelectorAll(".answer").forEach(ans => {ans.setAttribute("onClick", "")});
+        neighborSibling = neighborSibling.nextElementSibling;
+    }
+
+    setTimeout(function (){scrollNextQuestion(neighborSibling)},2000);
 
     // txt_answer.document.querySelector.setAttribute("class", "p"))
     // txt_answer.document.querySelector(".answer.true p").style.color = "green";
@@ -124,11 +147,11 @@ function responseBehavior(selectedAnswer){
     // selectedAnswer.parentElement.style.opacity = "50%";
     // selectedAnswer.classList.remove(".opacity");    
    
+
 }
 
 function scrollNextQuestion(element){
-    let questionContainer = element.parentElement;
-    questionContainer.nextSibling.scrollIntoView();
+    element.scrollIntoView();
 }
 
 /*

@@ -127,7 +127,7 @@ body{
 }
 
 .sc2_content {
-    margin-top: -31px;
+    padding-top: 69px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -237,10 +237,6 @@ body{
 
     .sc1_thumbnail_margin_right {
         margin-right: 15px;
-    }
-    
-    .sc2_content {
-        margin-top: -82px;
     }
     
     .sc2_banner {
